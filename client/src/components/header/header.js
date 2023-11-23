@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { HeaderStyled } from "./header.styled";
+import { HeaderStyled } from "./Header.styled";
 import { TogglerButton } from "../buttons/buttons";
 import NavMenu from "./NavMenu";
 

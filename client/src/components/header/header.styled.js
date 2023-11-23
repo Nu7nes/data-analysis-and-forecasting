@@ -8,7 +8,8 @@ export const HeaderStyled = styled.header`
     background-color: #578758;
     color: #fff;
     font-weight: 500;
-    position: relative;
+    position: sticky;
+    top: 0;
 `
 
 

@@ -1,11 +1,12 @@
 import React from "react";
-import { NavMenuStyled } from "./header.styled";
+import { Link } from "react-router-dom";
+import { NavMenuStyled } from "./Header.styled.js";
 
 function NavMenu() {
     return (
         <NavMenuStyled>
-            <a href="#">Registro</a>
-            <a href="#">Análise</a>
+            <Link to="/register">Registro</Link>
+            <Link to="/dashboard">Dashboard</Link>
         </NavMenuStyled>
     )
 }
