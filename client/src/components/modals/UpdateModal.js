@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { UpdateModalStyled } from "./Modals.styled";
 import Input from "../main/input/Input";
 import Select from "../main/select/Select";
+import { fetchWeather } from "../../model/fetchWeather";
 import { CancelButton, SubmitButton } from "../buttons/buttons";
 import { useDispatch } from "react-redux";
 import { updateForm } from "../../redux/slices/formListSlice";
@@ -21,24 +22,24 @@ function UpdateModal({ formId, onHandleCancelUpdate }) {
         how_fermented: "",
     });
 
-    useEffect(() => {
-        // missingKeys.forEach((key) => {
-        //     setFormData({ ...formData, [key]: "" });
-        // });
-
-        setFormData({
-            // date_init: "",
-            // weight_init: "",
-            // color_cassava: "branca",
-            // state_cassava: "úmida",
-            // texture_cassava: "macia",
-            // external_help: "nenhuma",
+    async function getWeather() {
+        const formDataFull = {
             date_end: "",
             weight_end: "",
             starch_end: "pouca",
-            how_fermented: "menos que o esperado",
-        });
-        // console.log(formData);
+            how_fermented: "menos que o esperado"
+        };
+        try {
+            const dataWeather = await fetchWeather('end');
+            const newObj = Object.assign({}, formDataFull, dataWeather);
+            setFormData(newObj);
+        } catch (error) {
+            console.error('Erro ao buscar dados do clima:', error);
+        }
+    }
+
+    useEffect(() => {
+        getWeather();
     }, []);
 
     function handleInputChange(event) {
@@ -138,7 +139,9 @@ function UpdateModal({ formId, onHandleCancelUpdate }) {
 
     function handleUpdateSubmit(event) {
         event.preventDefault();
+        console.log(formData);
         dispatch(updateForm({id: formId, obj: formData}));
+        window.alert("Formulário atualizado com sucesso!");
     }
 
     return (

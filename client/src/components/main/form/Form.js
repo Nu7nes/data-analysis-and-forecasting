@@ -25,33 +25,32 @@ function Form() {
     });
 
     async function getWeather() {
-        try {
-            const { weather, main } = await fetchWeather();
-            const firstObject = {
-                description: weather[0].description,
-                main: weather[0].main,
-            };
-            setFormData({ ...formData, ...firstObject, ...main });
-        } catch (error) {
-            console.error('Erro ao buscar dados do clima:', error);
-        }
-    }
-
-    useEffect(() => {
-        setFormData({
+        const formDataFull = {
             date_init: "",
             weight_init: "",
             color_cassava: "branca",
             state_cassava: "úmida",
             texture_cassava: "macia",
             external_help: "nenhuma",
-        });
+        };
+
+        try {
+            const dataWeather = await fetchWeather('init');
+            const newObj = Object.assign({}, formDataFull, dataWeather);
+            setFormData(newObj);
+        } catch (error) {
+            console.error('Erro ao buscar dados do clima:', error);
+        }
+    }
+
+    useEffect(() => {
         getWeather();
     }, []);
 
     useEffect(() => {
-        console.log(formData);
+        // console.log(formData);
     }, [formData]);
+    
     function handleInputChange(event) {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
@@ -82,7 +81,9 @@ function Form() {
         event.preventDefault();
         // const { weather, main } = await dispatch(fetchWeather());
         // console.log(weather, main);
-
+        console.log(formData);
+        window.alert("Formulário enviado com sucesso!");
+        window.location.reload();
         dispatch(addForm(formData));
     }
 

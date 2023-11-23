@@ -31,33 +31,10 @@ export const deleteForm = async (req, res) => {
 
 export const updateForm = async (req, res) => {
     const { id } = req.params;
-    const {
-        date_init,
-        weight_init,
-        color_cassava,
-        state_cassava,
-        texture_cassava,
-        external_help,
-        date_end,
-        weight_end,
-        starch_end,
-        how_fermented,
-    } = req.body;
+    const obj = req.body;
     if (!mongoose.Types.ObjectId.isValid(id))
         return res.status(404).send("No form with that id");
-    const updatedForm = {
-        date_init,
-        weight_init,
-        color_cassava,
-        state_cassava,
-        texture_cassava,
-        external_help,
-        date_end,
-        weight_end,
-        starch_end,
-        how_fermented,
-        _id: id,
-    };
+    const updatedForm = obj;
     await Form.findByIdAndUpdate(id, updatedForm, { new: true });
     res.json(updatedForm);
 };
