@@ -1,0 +1,1 @@
+AGRITEMPO = https://www.agritempo.gov.br/agritempo/controlador?objeto=ClimaDiario&acao=PesquisaWeb&idEstacao=9014021&dataInicial=2023-12-01&dataFinal=2023-12-05
