@@ -1,206 +1,85 @@
 import React, { useEffect, useState } from "react";
 import { UpdateModalStyled } from "./Modals.styled";
 import Input from "../main/input/Input";
-import Select from "../main/select/Select";
-import { fetchWeather } from "../../model/fetchWeather";
+// import Select from "../main/select/Select";
+// import { fetchWeather } from "../../model/fetchWeather";
 import { CancelButton, SubmitButton } from "../buttons/buttons";
 import { useDispatch } from "react-redux";
 import { updateForm } from "../../redux/slices/formListSlice";
+import { useForm, FormProvider, useFormContext } from "react-hook-form";
+import Select from "../main/select/Select";
+import { InputErrorStyled } from "../main/input/Input.styled";
 
 function UpdateModal({ formId, onHandleCancelUpdate }) {
     const dispatch = useDispatch();
-    const [formData, setFormData] = useState({
-        // date_init: "",
-        // weight_init: "",
-        // color_cassava: "",
-        // state_cassava: "",
-        // texture_cassava: "",
-        // external_help: "",
-        date_end: "",
-        weight_end: "",
-        starch_end: "",
-        how_fermented: "",
-    });
-
-    async function getWeather() {
-        const formDataFull = {
-            date_end: "",
-            weight_end: "",
-            starch_end: "pouca",
-            how_fermented: "menos que o esperado"
-        };
-        try {
-            const dataWeather = await fetchWeather('end');
-            const newObj = Object.assign({}, formDataFull, dataWeather);
-            setFormData(newObj);
-        } catch (error) {
-            console.error('Erro ao buscar dados do clima:', error);
-        }
-    }
-
-    useEffect(() => {
-        getWeather();
-    }, []);
-
-    function handleInputChange(event) {
-        const { name, value } = event.target;
-        setFormData({ ...formData, [name]: value });
-    }
-
-    // const typeOfElement = {
-    //     date_init: (
-    //         <Input
-    //             name="date_init"
-    //             type="date"
-    //             placeholder="Início do ciclo"
-    //             onchange={handleInputChange}
-    //         />
-    //     ),
-    //     weight_init: (
-    //         <Input
-    //             name="weight_init"
-    //             type="number"
-    //             placeholder="Peso Total"
-    //             unit={"kg"}
-    //             onchange={handleInputChange}
-    //         />
-    //     ),
-    //     color_cassava: (
-    //         <Select
-    //             name="color_cassava"
-    //             placeholder="Cor"
-    //             options={["branca", "amarela", "preta"]}
-    //             onchange={handleInputChange}
-    //         />
-    //     ),
-    //     state_cassava: (
-    //         <Select
-    //             placeholder="Estado/Fase"
-    //             name="state_cassava"
-    //             options={["úmida", "em processo", "queimada"]}
-    //             onchange={handleInputChange}
-    //         />
-    //     ),
-    //     texture_cassava: (
-    //         <Select
-    //             name="texture_cassava"
-    //             placeholder="Textura"
-    //             options={["macia", "dura"]}
-    //             onchange={handleInputChange}
-    //         />
-    //     ),
-    //     external_help: (
-    //         <Select
-    //             name="external_help"
-    //             placeholder="Interferência externa"
-    //             options={[
-    //                 "nenhuma",
-    //                 "água quente",
-    //                 "raspas",
-    //                 "água quente e raspas",
-    //             ]}
-    //             onchange={handleInputChange}
-    //         />
-    //     ),
-    //     date_end: (
-    //         <Input
-    //             name="date_end"
-    //             type="date"
-    //             placeholder="Fim do ciclo"
-    //             onchange={handleInputChange}
-    //         />
-    //     ),
-    //     weight_end: (
-    //         <Input
-    //             name="weight_end"
-    //             type="number"
-    //             placeholder="Peso total do fim do ciclo"
-    //             unit={"kg"}
-    //             onchange={handleInputChange}
-    //         />
-    //     ),
-    //     starch_end: (
-    //         <Select
-    //             name="starch_end"
-    //             placeholder="Goma no fim do ciclo"
-    //             options={["pouca", "média", "muita"]}
-    //             onchange={handleInputChange}
-    //         />
-    //     ),
-    //     how_fermented: (
-    //         <Select
-    //             name="how_fermented"
-    //             placeholder="Quão fermentada ficou"
-    //             options={["menos que o esperado", "na média", "por completo"]}
-    //             onchange={handleInputChange}
-    //         />
-    //     ),
-    // };
-
-    function handleUpdateSubmit(event) {
-        event.preventDefault();
-        console.log(formData);
-        dispatch(updateForm({id: formId, obj: formData}));
+    const methods = useForm();
+    function onUpdateForm(data) {
+        dispatch(updateForm({ id: formId, obj: data }));
         window.alert("Formulário atualizado com sucesso!");
+        console.log(data);
     }
 
     return (
-        <UpdateModalStyled>
-            <h3>Concluir entrada</h3>
-            <form onSubmit={handleUpdateSubmit}>
-                {/* {missingKeys.map((key) => {
-                    return typeOfElement[key];
-                })} */}
-                <Input
-                    name="date_end"
-                    type="date"
-                    placeholder="Fim do ciclo"
-                    value={formData.date_end}
-                    onchange={handleInputChange}
-                />
-                <Input
-                    name="weight_end"
-                    type="number"
-                    placeholder="Peso total do fim do ciclo"
-                    unit={"kg"}
-                    value={formData.weight_end}
-                    onchange={handleInputChange}
-                />
-                <Select
-                    name="starch_end"
-                    placeholder="Goma no fim do ciclo"
-                    options={["pouca", "média", "muita"]}
-                    value={formData.starch_end}
-                    onchange={handleInputChange}
-                />
-                <Select
-                    name="how_fermented"
-                    placeholder="Quão fermentada ficou"
-                    options={[
-                        "menos que o esperado",
-                        "na média",
-                        "por completo",
-                    ]}
-                    value={formData.how_fermented}
-                    onchange={handleInputChange}
-                />
+        <FormProvider {...methods}>
+            <UpdateModalStyled>
+                <h3>Concluir entrada</h3>
+                <form onSubmit={methods.handleSubmit(onUpdateForm)}>
+                    <Input
+                        type="date"
+                        label="date_end"
+                        placeholder="Fim do ciclo"
+                        unit=""
+                        isRequired={true}
+                    />
+                    <InputErrorStyled>
+                        {methods.formState.errors.date_end && (
+                            <p>Preencha a data de conclusão</p>
+                        )}
+                    </InputErrorStyled>
+                    <Input
+                        type="number"
+                        label="weight_end"
+                        placeholder="Peso total do fim do ciclo"
+                        unit={"kg"}
+                        isRequired={true}
+                    />
+                    <InputErrorStyled>
+                        {methods.formState.errors.date_end && (
+                            <p>Preencha o peso final</p>
+                        )}
+                    </InputErrorStyled>
+                    <Select
+                        label="starch_end"
+                        placeholder="Goma no fim do ciclo"
+                        options={["pouca", "média", "muita"]}
+                    />
+                    <Select
+                        label="how_fermented"
+                        placeholder="Quão fermentada ficou"
+                        options={[
+                            "menos que o esperado",
+                            "na média",
+                            "por completo",
+                        ]}
+                    />
 
-                <div
-                    style={{ display: "flex", gap: "1rem", padding: "0.6rem" }}
-                >
-                    <SubmitButton
-                        type="submit"
-                        value="Atualizar"
-                        onClick={handleUpdateSubmit}
-                    />
-                    <CancelButton
-                        type="button"
-                        value="Cancelar"
-                        onHandleCancelButton={onHandleCancelUpdate}
-                    />
-                </div>
-            </form>
-        </UpdateModalStyled>
+                    <div
+                        style={{
+                            display: "flex",
+                            gap: "1rem",
+                            padding: "0.6rem",
+                        }}
+                    >
+                        <SubmitButton type="submit" value="Atualizar" />
+                        <CancelButton
+                            type="button"
+                            value="Cancelar"
+                            onHandleCancelButton={onHandleCancelUpdate}
+                        />
+                    </div>
+                </form>
+            </UpdateModalStyled>
+        </FormProvider>
     );
 }
 

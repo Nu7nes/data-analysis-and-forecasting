@@ -10,6 +10,7 @@ export const HeaderStyled = styled.header`
     font-weight: 500;
     position: sticky;
     top: 0;
+    z-index: 10;
 `
 
 

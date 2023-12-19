@@ -13,7 +13,7 @@ function DataArea(placeholder, data) {
     );
 }
 
-function FormItem({ form, submitButton, missingKeys }) {
+function FormItem({ form, submitButton }) {
     const [updateModal, setUpdateModal] = useState(false);
 
     function handleCancelUpdate() {
@@ -47,7 +47,6 @@ function FormItem({ form, submitButton, missingKeys }) {
                 <UpdateModal
                     formId={form._id}
                     onHandleCancelUpdate={handleCancelUpdate}
-                    missingKeys={missingKeys}
                 />
             ) : (
                 ""
