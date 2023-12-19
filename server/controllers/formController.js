@@ -1,5 +1,18 @@
 import Form from "../models/Form.js";
 import mongoose from "mongoose";
+import { getWeatherData } from "../services/weatherDataBase.js";
+
+const getFormById = async (id) => {
+    if (!mongoose.Types.ObjectId.isValid(id))
+        return res.status(404).send("No form with that id");
+    try {
+        const form = await Form.findById(id);
+        return form;
+    } catch (error) {
+        console.log(error);
+        return error;
+    }
+};
 
 export const getForms = async (req, res) => {
     try {
@@ -12,6 +25,7 @@ export const getForms = async (req, res) => {
 
 export const createForm = async (req, res) => {
     const form = req.body;
+    form.isCompleted = false;
     const newForm = new Form(form);
     try {
         await newForm.save();
@@ -31,10 +45,16 @@ export const deleteForm = async (req, res) => {
 
 export const updateForm = async (req, res) => {
     const { id } = req.params;
-    const obj = req.body;
     if (!mongoose.Types.ObjectId.isValid(id))
         return res.status(404).send("No form with that id");
-    const updatedForm = obj;
+
+    const obj = req.body;
+    const { date_init } = await getFormById(id);
+    const weatherData = await getWeatherData(date_init, obj.date_end);
+    console.log(weatherData);
+    if(weatherData.error) return res.status(404).send(weatherData.message);
+    
+    const updatedForm = { ...obj, ...weatherData, isCompleted: true };
     await Form.findByIdAndUpdate(id, updatedForm, { new: true });
     res.json(updatedForm);
 };
