@@ -2,18 +2,18 @@ import React from "react";
 import Form from "./form/Form";
 import { Routes, Route } from "react-router-dom";
 import Dashboard from "./dashboard/Dashboard";
-import { MainStyled } from "./Main.styled";
+import { Flex } from "@chakra-ui/react";
 
 function Main() {
   
   return (
-    <MainStyled>
+    <Flex justifyContent='center'>
       <Routes>
         <Route index path="/" element={<Form />} />
         <Route path="/register" element={<Form />} />
         <Route path="/dashboard" element={<Dashboard />} />
       </Routes>
-    </MainStyled>
+    </Flex>
   );
 }
 

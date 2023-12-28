@@ -1,13 +1,12 @@
 export function renameKeys(array, daysLenght) {
     return array.map((obj, index) => {
         const renamedKeys = {
-            data: `date_aqui_${index}`,
-            temperaturaMinima: `minTemp_aqui_${index}`,
-            temperaturaMedia: `medTemp_aqui_${index}`,
-            temperaturaMaxima: `maxTemp_aqui_${index}`,
-            precipitacao: `precipitation_aqui_${index}`,
-            umidadeMinima: `minHum_aqui_${index}`,
-            umidadeMaxima: `maxHum_aqui_${index}`,
+            temperaturaMinima: `minTemp_day_${index}`,
+            temperaturaMedia: `medTemp_day_${index}`,
+            temperaturaMaxima: `maxTemp_day_${index}`,
+            precipitacao: `precipitation_day_${index}`,
+            umidadeMinima: `minHum_day_${index}`,
+            umidadeMaxima: `maxHum_day_${index}`,
         };
 
         const newObj = {};

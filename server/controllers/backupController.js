@@ -10,7 +10,14 @@ export const backupAndDownload = async (req, res) => {
     const data = await Form.find();
     const csv = await CreateCsv(data);
     pathFile = csv.path
-    res.status(200).download(csv.path)
+    // res.status(200).download(csv.path)
+
+    res.download(pathFile, (err) => {
+      if (err) {
+        console.error('Erro ao enviar o arquivo para download:', err);
+        res.status(500).send('Erro ao fazer o download do arquivo');
+      }
+    });
   } catch (error) {
     res.status(404).json({ message: error.message });
   }

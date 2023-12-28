@@ -1,24 +1,37 @@
 import React from "react";
-import { useForm, FormProvider, useFormContext } from "react-hook-form";
-import {
-  SelectContainerStyled,
-  SelectStyled,
-  SelectLabelStyled,
-} from "./Select.styled";
+import { useFormContext } from "react-hook-form";
+// import {
+//   SelectContainerStyled,
+//   SelectStyled,
+//   SelectLabelStyled,
+// } from "./Select.styled";
 
-function Select({ label, placeholder, options }) {
+import { Box, Text, Select } from "@chakra-ui/react";
+
+function SelectBox({ label, placeholder, options }) {
   const { register } = useFormContext();
 
   return (
-    <SelectContainerStyled>
-      <SelectLabelStyled>{placeholder + ": "}</SelectLabelStyled>
-      <SelectStyled {... register(label)}>
-        {options.map((option, index) => (
-          <option key={index} value={option}>{(index + 1) + " - " + option[0].toUpperCase() + option.slice(1)}</option>
+    <Box>
+      <Text as="sub">{placeholder + ": "}</Text>
+      <Select
+        {...register(label)}
+        focusBorderColor="green.300"
+        placeholder="Escolher"
+        isRequired={true}
+      >
+        {options.map((optionName, index) => (
+          <option key={index} value={optionName}>
+            {index +
+              1 +
+              " - " +
+              optionName[0].toUpperCase() +
+              optionName.slice(1)}
+          </option>
         ))}
-      </SelectStyled>
-    </SelectContainerStyled>
+      </Select>
+    </Box>
   );
 }
 
-export default Select;
+export default SelectBox;
