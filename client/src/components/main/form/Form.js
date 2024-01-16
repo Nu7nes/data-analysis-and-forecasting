@@ -70,7 +70,7 @@ function Form() {
           <SelectBox
             label="texture_cassava"
             placeholder="Textura"
-            options={["macia", "dura"]}
+            options={["murcha", "macia", "dura"]}
             isRequired={true}
           />
           <SelectBox
