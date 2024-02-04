@@ -38,7 +38,7 @@ Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de
 
 `PORT` : porta para o servidor node
 
-`MONGO_CONNECTION_URI` : conexão com o bando de dados (MongoDB)
+`MONGO_CONNECTION_URI` : conexão com o banco de dados (MongoDB)
 
 `WEATHER_API_KEY` : chave disponibilizada pelo [Weather API](https://openweathermap.org/api)
 
