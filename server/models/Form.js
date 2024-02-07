@@ -12,6 +12,7 @@ const formSchema = new mongoose.Schema({
     weight_end: String,
     starch_end: String,
     how_fermented: String,
+    open_area: Boolean,
     minTemp_day_0: Number,
     medTemp_day_0: Number,
     maxTemp_day_0: Number,

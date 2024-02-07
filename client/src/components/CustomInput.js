@@ -7,12 +7,6 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 import { useFormContext } from "react-hook-form";
-// import {
-//     InputContainerStyled,
-//     InputStyled,
-//     InputFirstLabelStyled,
-//     InputLastLabelStyled,
-// } from "./Input.styled";
 
 function InputBox({ placeholder, unit, label, isRequired, type, validate }) {
   const { register } = useFormContext();

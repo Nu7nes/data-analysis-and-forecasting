@@ -2,12 +2,10 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { addForm } from "../../../redux/slices/formListSlice";
 import { useForm, FormProvider } from "react-hook-form";
-import InputBox from "../input/Input";
-import SelectBox from "../select/Select";
+import InputBox from "../../CustomInput";
+import SelectBox from "../../CustomSelect";
 
-import { InputErrorStyled } from "../input/Input.styled";
 import { FormSectionStyled, FormStyled } from "./Form.styled";
-import { SubmitButtonStyled } from "../../buttons/buttons.styled";
 
 import { Button } from "@chakra-ui/react";
 import { MdSend } from "react-icons/md";

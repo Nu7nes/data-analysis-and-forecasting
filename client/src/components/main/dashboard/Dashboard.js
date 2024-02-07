@@ -7,9 +7,9 @@ import {
   missingKeysList,
 } from "../../../model/validation";
 import { DashboardSectionStyled, DashboardStyled } from "./Dashboard.styled";
-import { DownloadButton } from "../../buttons/buttons.styled";
 import JsFileDownloader from "js-file-downloader";
 import FormItem from "./FormItem";
+import { Button } from "@chakra-ui/react";
 
 function Dashboard() {
   const formList = useSelector((state) => state.formList.data);
@@ -72,7 +72,7 @@ function Dashboard() {
         )}
       </DashboardSectionStyled>
 
-      <DownloadButton onClick={dataDownload}>Obter dados</DownloadButton>
+      <Button onClick={dataDownload}>Obter dados</Button>
     </DashboardStyled>
   );
 }

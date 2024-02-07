@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import { DataAreaStyled, FormItemStyled } from "./Dashboard.styled";
-import { UpdateButton } from "../../buttons/buttons";
 import UpdateModal from "../../modals/UpdateModal";
+import { Button, useDisclosure } from "@chakra-ui/react";
 
 function DataArea(placeholder, data) {
     return (
@@ -14,11 +14,11 @@ function DataArea(placeholder, data) {
 }
 
 function FormItem({ form, submitButton }) {
-    const [updateModal, setUpdateModal] = useState(false);
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
-    function handleCancelUpdate() {
-        setUpdateModal(!updateModal);
-    }
+    // function handleCancelUpdate() {
+    //     setUpdateModal(!updateModal);
+    // }
 
     return (
         <FormItemStyled>
@@ -33,24 +33,11 @@ function FormItem({ form, submitButton }) {
             {DataArea("Goma no fim do ciclo", form.starch_end)}
             {DataArea("Quão fermentada está", form.how_fermented)}
             {submitButton ? (
-                <UpdateButton
-                    type="submit"
-                    value="Concluir entrada"
-                    onHandleUpdateButton={() => {
-                        setUpdateModal(!updateModal);
-                    }}
-                />
+                <Button colorScheme="green" onClick={onOpen}>Concluir entrada</Button>
             ) : (
                 ""
             )}
-            {updateModal ? (
-                <UpdateModal
-                    formId={form._id}
-                    onHandleCancelUpdate={handleCancelUpdate}
-                />
-            ) : (
-                ""
-            )}
+            <UpdateModal formId={form._id} isOpen={isOpen} onClose={onClose} />
         </FormItemStyled>
     );
 }
