@@ -26,7 +26,7 @@ Tal processo se extende por dias e leva em consideração diversos fatores, tais
 ## Etapas
 
 - [ Em construção ] Interface para captação dos dados. 
-- [ Aguardando ] Captação de dados para primeira analise.
+- [ Em construção ] Captação de dados para primeira analise.
 - [ Aguardando ] Integração do back-end com API's e bases de dados de clima.
 - [ Aguardando ] Script de analise dos dados.
 - [ Aguardando ] Testes das primeiras análises.
@@ -38,7 +38,7 @@ Para rodar esse projeto, você vai precisar adicionar as seguintes variáveis de
 
 `PORT` : porta para o servidor node
 
-`MONGO_CONNECTION_URI` : conexão com o bando de dados (MongoDB)
+`MONGO_CONNECTION_URI` : conexão com o banco de dados (MongoDB)
 
 `WEATHER_API_KEY` : chave disponibilizada pelo [Weather API](https://openweathermap.org/api)
 
