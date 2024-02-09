@@ -4,10 +4,7 @@ import { addForm } from "../../../redux/slices/formListSlice";
 import { useForm, FormProvider } from "react-hook-form";
 import InputBox from "../../CustomInput";
 import SelectBox from "../../CustomSelect";
-
-import { FormSectionStyled, FormStyled } from "./Form.styled";
-
-import { Button } from "@chakra-ui/react";
+import { Button, VStack } from "@chakra-ui/react";
 import { MdSend } from "react-icons/md";
 
 function Form() {
@@ -26,8 +23,8 @@ function Form() {
 
   return (
     <FormProvider {...methods}>
-      <FormStyled onSubmit={methods.handleSubmit(onSubmitForm)}>
-        <FormSectionStyled>
+      <VStack w={['90vw', '70vw', '400px']}  align="stretch" as="form" onSubmit={methods.handleSubmit(onSubmitForm)}>
+        
           <InputBox
             type="date"
             label="date_init"
@@ -94,8 +91,8 @@ function Form() {
           >
             Enviar
           </Button>
-        </FormSectionStyled>
-      </FormStyled>
+        
+      </VStack>
     </FormProvider>
   );
 }

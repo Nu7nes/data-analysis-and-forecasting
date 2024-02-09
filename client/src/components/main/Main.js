@@ -7,7 +7,7 @@ import { Flex } from "@chakra-ui/react";
 function Main() {
   
   return (
-    <Flex justifyContent='center'>
+    <Flex justifyContent='center' overflowY="auto">
       <Routes>
         <Route index path="/" element={<Form />} />
         <Route path="/register" element={<Form />} />

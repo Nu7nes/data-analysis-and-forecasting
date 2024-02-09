@@ -18,6 +18,7 @@ function Header() {
       px={5}
       position={"sticky"}
       top={0}
+      zIndex={10}
     >
       <Heading as="h1" size="md" color="#fff">
         PubaAPP
