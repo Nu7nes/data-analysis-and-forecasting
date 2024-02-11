@@ -6,7 +6,6 @@ import {
     validObjectValues,
     missingKeysList,
 } from "../../../model/validation";
-import { DashboardSectionStyled, DashboardStyled } from "./Dashboard.styled";
 import JsFileDownloader from "js-file-downloader";
 import FormItem from "./FormItem";
 import { Button, Flex, Heading } from "@chakra-ui/react";

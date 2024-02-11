@@ -9,11 +9,9 @@ import {
     ModalBody,
     ModalContent,
     ModalCloseButton,
-    Flex,
     ModalOverlay,
     Button,
     ModalFooter,
-    StepSeparator,
 } from "@chakra-ui/react";
 import InputBox from "../CustomInput";
 import SelectBox from "../CustomSelect";
@@ -23,7 +21,7 @@ function UpdateModal({ formId, isOpen, onClose }) {
     const dispatch = useDispatch();
     const methods = useForm();
     function onUpdateForm(data) {
-        // dispatch(updateForm({ id: formId, obj: data }));
+        dispatch(updateForm({ id: formId, obj: data }));
         window.alert("Formulário atualizado com sucesso!");
     }
 

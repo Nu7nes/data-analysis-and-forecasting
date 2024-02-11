@@ -1,6 +1,4 @@
 import React from "react";
-import { useState } from "react";
-import { DataAreaStyled, FormItemStyled } from "./Dashboard.styled";
 import UpdateModal from "../../modals/UpdateModal";
 
 import {
@@ -11,50 +9,72 @@ import {
     CardHeader,
     Heading,
     useDisclosure,
-    IconButton
+    IconButton,
+    Flex,
+    CardBody,
+    TableContainer,
+    Table,
+    Thead,
+    Tr,
+    Th,
+    Tbody,
+    Td,
+    Menu,
+    MenuButton,
 } from "@chakra-ui/react";
+import { MdMoreVert } from "react-icons/md";
+import CustomMenu from "../../CustomMenu";
 
-function DataArea(placeholder, data) {
-    return (
-        <DataAreaStyled>
-            <label>{placeholder}</label>
-            <p>{data}</p>
-        </DataAreaStyled>
-    );
-}
+let count = 0
 
 function FormItem({ form, submitButton }) {
     const { isOpen, onOpen, onClose } = useDisclosure();
+    const formTableConstructor = Object.entries(form).map(
+        ([key, value]) =>
+            key !== "_id" &&
+            key !== "__v" && (
+                <Tr>
+                    <Td>{key}</Td>
+                    <Td>{value.toString()}</Td>
+                </Tr>
+            )
+    );
+
     return (
         <Card size="md" p={1} w={["350px"]} shadow="0 2px 6px #00000060">
             <CardHeader ml={2}>
-                <Box>
-                    <Heading size="md" m={0}>
-                        {new Date(form.date_init).toLocaleDateString()}
-                    </Heading>
-                    <Heading size="sm" m={0} ml={10}>
-                        {form.date_end
-                            ? new Date(form.date_end).toLocaleDateString()
-                            : "Não finalizado"}
-                    </Heading>
-                </Box>
-                <IconButton
-                    variant="ghost"
-                    colorScheme="gray"
-                    aria-label="See menu"
-                    icon={<BsThreeDotsVertical />}
-                />
+                <Flex justify="space-between">
+                    <Box>
+                        <Heading size="md" m={0}>
+                            {new Date(form.date_init).toLocaleDateString()}
+                        </Heading>
+                        <Heading size="sm" m={0} ml={10}>
+                            {form.date_end
+                                ? new Date(form.date_end).toLocaleDateString()
+                                : "Não finalizado"}
+                        </Heading>
+                    </Box>
+                    <Menu>
+                        <MenuButton as={Button} variant="ghost">
+                            <MdMoreVert fontSize="1.3rem" />
+                        </MenuButton>
+                        <CustomMenu id={form._id} />
+                    </Menu>
+                </Flex>
             </CardHeader>
-            {DataArea("Data início", form.date_init)}
-            {DataArea("Peso total inicial", form.weight_init)}
-            {DataArea("Cor da mandioca", form.color_cassava)}
-            {DataArea("Estado da mandioca", form.state_cassava)}
-            {DataArea("Textura da mandioca", form.texture_cassava)}
-            {DataArea("Interferência externa", form.external_help)}
-            {DataArea("Data fim", form.date_end)}
-            {DataArea("Peso total final", form.weight_end)}
-            {DataArea("Goma no fim do ciclo", form.starch_end)}
-            {DataArea("Quão fermentada está", form.how_fermented)}
+            <CardBody>
+                <TableContainer>
+                    <Table variant="striped" size="sm">
+                        <Thead>
+                            <Tr>
+                                <Th>Key</Th>
+                                <Th>Value</Th>
+                            </Tr>
+                        </Thead>
+                        <Tbody>{formTableConstructor}</Tbody>
+                    </Table>
+                </TableContainer>
+            </CardBody>
 
             <CardFooter>
                 {submitButton ? (
