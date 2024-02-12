@@ -27,7 +27,7 @@ Tal processo se extende por dias e leva em consideração diversos fatores, tais
 
 - [ Em construção ] Interface para captação dos dados. 
 - [ Em construção ] Captação de dados para primeira analise.
-- [ Aguardando ] Integração do back-end com API's e bases de dados de clima.
+- [ Pronta ] Integração do back-end com API's e bases de dados de clima.
 - [ Aguardando ] Script de analise dos dados.
 - [ Aguardando ] Testes das primeiras análises.
 
