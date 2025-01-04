@@ -56,7 +56,7 @@ function UpdateModal({ formId, isOpen, onClose }) {
                             <SelectBox
                                 label="starch_end"
                                 placeholder="Goma no fim do ciclo"
-                                options={["pouca", "média", "muita"]}
+                                options={["nenhuma", "pouca", "média", "muita"]}
                                 isRequired={true}
                             />
                             <SelectBox
